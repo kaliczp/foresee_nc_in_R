@@ -57,7 +57,10 @@ nc.units <- "days since 2015-01-01"
 ncmin <- nc_open(ncnam[3])
 ncmax <- nc_open(ncnam[2])
 nctimlength <- length(ncvar_get(ncmin,"time"))
+## define the dimensions
 tim <- ncdim_def( "Time", units = nc.units, 1:nctimlength, unlim=TRUE)
+mo.x <- ncdim_def( "Lon", "degreesE", seq(15.75+2/6,22.75+1/6,1/6))
+mo.y <- ncdim_def( "Lat", "degreesN", seq(45.75,48.25+2/6,1/6))
 foreseemean <- ncvar_def("Mean temperature", "degree Celsius",  list(mo.x,mo.y,tim), NULL, prec = "float")
 nc.foreseemean <- nc_create(nc.filename, foreseemean)
 for(ttlon in 32:73) { #
