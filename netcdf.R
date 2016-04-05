@@ -28,6 +28,14 @@ points(16.58333,47.58333,col="red")
 ## The same with index
 points(lon[4],lat[12],col="blue") ## below Hidegvíz
 
+## Marchfeld: Draw a point
+points(16.34,48.2,col="green")
+## The same with index
+points(lon[3],lat[16],col="purple") 
+
+march.remo <- ncvar_get(remo,"Mean temperature", c(3,16,1),c(1,1,31390))
+
+
 ######################################################################
 ## Write average temp for Hungary.
 ######################################################################
@@ -38,7 +46,12 @@ nc.filename <- "fresee2.1_tmean.nc"
 nc.units <- "days since 1951-01-01"
 
 ## For REMO
+ncnam <- dir("REMO")
 nc.filename <- "fresee2.1_REMO_tmean.nc"
+## For HIRHAM5
+ncnam <- dir(patt="HIRHAM5")
+nc.filename <- "fresee2.1_DMIHIRHAM5_tmean.nc"
+
 nc.units <- "days since 2015-01-01"
 ## Open existing netcdf files
 ncmin <- nc_open(ncnam[3])
