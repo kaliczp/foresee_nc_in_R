@@ -11,16 +11,22 @@ library(ncdf4)
 library(sp)
 hun <- readRDS("HUN_adm0.rds")
 plot(hun, xlim=c(10.92,28.08), ylim=c(42.58,51.08))
+## Only Hungary
+plot(hun, xlim=c(16,22.95), ylim=c(45.7,48.6))
+nc.filename <- "fresee2.1_REMO_tmean.nc"
+remo <- nc_open(nc.filename)
+lon <- ncvar_get(remo,"Lon")
+lat <- ncvar_get(remo,"Lat")
 points(rep(lon,length(lat)),rep(lat,each=length(lon)),pch=".")
 
-## Without sp package
+## Without projection
 plot(rep(lon,length(lat)),rep(lat,each=length(lon)),type="p",pch=".", asp=TRUE)
 plot(hun, add=TRUE)
 
 ## Draw a point
 points(16.58333,47.58333,col="red")
 ## The same with index
-points(lon[35],lat[31],col="red") ## below Hidegvíz
+points(lon[4],lat[12],col="blue") ## below Hidegvíz
 
 ######################################################################
 ## Write average temp for Hungary.
@@ -55,7 +61,3 @@ for(ttlon in 32:73) { #
 nc_close(ncmin)
 nc_close(ncmax)
 nc_close(nc.foreseemean)
-
-nc.open(nc.filename)
-ncvar_get(remo,"Lon")
-ncvar_get(remo,"Lat")
