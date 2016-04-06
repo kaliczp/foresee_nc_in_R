@@ -48,9 +48,11 @@ nc.units <- "days since 1951-01-01"
 ## For REMO
 ncnam <- dir("REMO")
 nc.filename <- "fresee2.1_REMO_tmean.nc"
+
+
 ## For HIRHAM5
-ncnam <- dir(patt="HIRHAM5")
-nc.filename <- "fresee2.1_DMIHIRHAM5_tmean.nc"
+ncnam <- dir(patt="RCA")
+nc.filename <- "fresee2.1_SMHIRCA_tmean.nc"
 
 nc.units <- "days since 2015-01-01"
 ## Open existing netcdf files
