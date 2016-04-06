@@ -46,7 +46,7 @@ nc.filename <- "fresee2.1_tmean.nc"
 nc.units <- "days since 1951-01-01"
 
 ## For REMO
-ncnam <- dir("REMO")
+ncnam <- dir(patt = "REMO")
 nc.filename <- "fresee2.1_REMO_tmean.nc"
 
 
