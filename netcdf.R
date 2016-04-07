@@ -80,9 +80,13 @@ nc_close(ncmin)
 nc_close(ncmax)
 nc_close(nc.foreseemean)
 
+#########################################################
+#########################################################
+
 ## Cut out precipitation
-ncnam <- dir(patt= "REMO")
-nc.filename <- "fresee2.1_REMO_prec.nc"
+
+ncnam <- dir(patt= "HIRHAM5")
+nc.filename <- "fresee2.1_DMIHIRHAM5_prec.nc"
 
 nc.units <- "days since 2015-01-01"
 ## Open existing netcdf files
