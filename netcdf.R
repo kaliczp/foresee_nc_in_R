@@ -109,7 +109,9 @@ for(ttlon in 32:73) { #
 nc_close(ncprec)
 nc_close(nc.foreseeprec)
 
-## Date for precipitation
+#################################################################################
+
+## Date for precipitation: REMO
 ncnam <- dir(patt= "REMO")
 ncprec.ori <- nc_open(ncnam[1])
 ## Substract date from original file
@@ -121,5 +123,136 @@ ncprec <- nc_open("fresee2.1_REMO_prec.nc")
 march.prec.remo <- ncvar_get(ncprec,"Precipitation", c(3,16,1),c(1,1,31390))
 nc_close(ncprec)
 
-prec.xts <- xts(march.prec.remo, date.d)
-plot(prec.xts, xaxs="i")
+prec.remo.xts <- xts(march.prec.remo, date.d)
+plot(prec.remo.xts, xaxs="i")
+
+###################################################################################
+
+## Date for precipitation: KNMIRACMO2
+ncnam <- dir(patt= "RACMO2")
+ncprec.ori <- nc_open(ncnam[1])
+## Substract date from original file
+date.d <- as.Date(paste(ncvar_get(ncprec,"year"),ncvar_get(ncprec,"month"),ncvar_get(ncprec,"day"),sep="-"))
+nc_close(ncprec.ori)
+
+## Load data for a Marchfeld pixel
+ncprec <- nc_open("fresee2.1_KNMIRACMO2_prec.nc")
+march.prec.knmi <- ncvar_get(ncprec,"Precipitation", c(3,16,1),c(1,1,31390))
+nc_close(ncprec)
+
+prec.knmi.xts <- xts(march.prec.knmi, date.d)
+plot(prec.knmi.xts, xaxs="i")
+
+####################################################################################
+
+## Date for precipitation: DMI
+ncnam <- dir(patt= "HIRHAM")
+ncprec.ori <- nc_open(ncnam[1])
+## Substract date from original file
+date.d <- as.Date(paste(ncvar_get(ncprec,"year"),ncvar_get(ncprec,"month"),ncvar_get(ncprec,"day"),sep="-"))
+nc_close(ncprec.ori)
+
+## Load data for a Marchfeld pixel
+ncprec <- nc_open("fresee2.1_DMIHIRHAM5_prec.nc")
+march.prec.dmi <- ncvar_get(ncprec,"Precipitation", c(3,16,1),c(1,1,31390))
+nc_close(ncprec)
+
+prec.dm.xts <- xts(march.prec.dmi, date.d)
+plot(prec.dm.xts, xaxs="i")
+
+####################################################################################
+
+## Date for precipitation: SM
+ncnam <- dir(patt= "RCA")
+ncprec.ori <- nc_open(ncnam[1])
+## Substract date from original file
+date.d <- as.Date(paste(ncvar_get(ncprec,"year"),ncvar_get(ncprec,"month"),ncvar_get(ncprec,"day"),sep="-"))
+nc_close(ncprec.ori)
+
+## Load data for a Marchfeld pixel
+ncprec <- nc_open("fresee2.1_SMHIRCA_prec.nc")
+march.prec.sm <- ncvar_get(ncprec,"Precipitation", c(3,16,1),c(1,1,31390))
+nc_close(ncprec)
+
+prec.sm.xts <- xts(march.prec.sm, date.d)
+plot(prec.sm.xts, xaxs="i")
+
+###################################################################################
+## T-E-M-P-E-R-A-T-U-R-E
+## T-E-M-P-E-R-A-T-U-R-E
+###################################################################################
+
+####################################################################################
+
+## Date for Temp: SM
+ncnam <- dir(patt= "RCA")
+ncprec.ori <- nc_open(ncnam[5])
+## Substract date from original file
+date.d <- as.Date(paste(ncvar_get(ncprec,"year"),ncvar_get(ncprec,"month"),ncvar_get(ncprec,"day"),sep="-"))
+nc_close(ncprec.ori)
+
+## Load data for a Marchfeld pixel
+nctemp <- nc_open("fresee2.1_SMHIRCA_tmean.nc")
+march.temp.sm <- ncvar_get(nctemp,"Mean temperature", c(3,16,1),c(1,1,31390))
+nc_close(nctemp)
+
+temp.sm.xts <- xts(march.temp.sm, date.d)
+plot(temp.sm.xts, xaxs="i")
+
+####################################################################################
+
+## Date for Temp: DM
+ncnam <- dir(patt= "HIRHAM5")
+ncprec.ori <- nc_open(ncnam[5])
+## Substract date from original file
+date.d <- as.Date(paste(ncvar_get(ncprec,"year"),ncvar_get(ncprec,"month"),ncvar_get(ncprec,"day"),sep="-"))
+nc_close(ncprec.ori)
+
+## Load data for a Marchfeld pixel
+nctemp <- nc_open("fresee2.1_DMIHIRHAM5_tmean.nc")
+march.temp.dm <- ncvar_get(nctemp,"Mean temperature", c(3,16,1),c(1,1,31390))
+nc_close(nctemp)
+
+temp.dm.xts <- xts(march.temp.dm, date.d)
+plot(temp.dm.xts, xaxs="i")
+
+####################################################################################
+
+## Date for Temp: KNMI
+ncnam <- dir(patt= "RACMO2")
+ncprec.ori <- nc_open(ncnam[5])
+## Substract date from original file
+date.d <- as.Date(paste(ncvar_get(ncprec,"year"),ncvar_get(ncprec,"month"),ncvar_get(ncprec,"day"),sep="-"))
+nc_close(ncprec.ori)
+
+## Load data for a Marchfeld pixel
+nctemp <- nc_open("fresee2.1_KNMIRACMO2_tmean.nc")
+march.temp.knmi <- ncvar_get(nctemp,"Mean temperature", c(3,16,1),c(1,1,31390))
+nc_close(nctemp)
+
+temp.knmi.xts <- xts(march.temp.knmi, date.d)
+plot(temp.knmi.xts, xaxs="i")
+
+####################################################################################
+
+## Date for Temp: REMO
+ncnam <- dir(patt= "REMO")
+ncprec.ori <- nc_open(ncnam[5])
+## Substract date from original file
+date.d <- as.Date(paste(ncvar_get(ncprec,"year"),ncvar_get(ncprec,"month"),ncvar_get(ncprec,"day"),sep="-"))
+nc_close(ncprec.ori)
+
+## Load data for a Marchfeld pixel
+nctemp <- nc_open("fresee2.1_REMO_tmean.nc")
+march.temp.remo <- ncvar_get(nctemp,"Mean temperature", c(3,16,1),c(1,1,31390))
+nc_close(nctemp)
+
+temp.remo.xts <- xts(march.temp.remo, date.d)
+plot(temp.remo.xts, xaxs="i")
+
+remo.echam = merge.xts(t=temp.remo.xts,p=prec.remo.xts)
+knmi.racmo2 = merge.xts(t=temp.knmi.xts,p=prec.knmi.xts)
+dmi.echam = merge.xts(t=temp.dm.xts,p=prec.dm.xts)
+smhirca.bcm = merge.xts(t=temp.sm.xts,p=prec.sm.xts)
+
+
