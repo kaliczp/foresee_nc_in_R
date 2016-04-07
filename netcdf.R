@@ -104,3 +104,18 @@ for(ttlon in 32:73) { #
 ## Close netcdf files
 nc_close(ncprec)
 nc_close(nc.foreseeprec)
+
+## Date for precipitation
+ncnam <- dir(patt= "REMO")
+ncprec.ori <- nc_open(ncnam[1])
+## Substract date from original file
+date.d <- as.Date(paste(ncvar_get(ncprec,"year"),ncvar_get(ncprec,"month"),ncvar_get(ncprec,"day"),sep="-"))
+nc_close(ncprec.ori)
+
+## Load data for a Marchfeld pixel
+ncprec <- nc_open("fresee2.1_REMO_prec.nc")
+march.prec.remo <- ncvar_get(ncprec,"Precipitation", c(3,16,1),c(1,1,31390))
+nc_close(ncprec)
+
+prec.xts <- xts(march.prec.remo, date.d)
+plot(prec.xts, xaxs="i")
