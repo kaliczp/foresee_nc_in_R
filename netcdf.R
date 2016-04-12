@@ -283,7 +283,6 @@ knmi.racmo2 = merge.xts(t=temp.knmi.xts,p=prec.knmi.xts)
 dmi.echam = merge.xts(t=temp.dm.xts,p=prec.dm.xts)
 smhirca.bcm = merge.xts(t=temp.sm.xts,p=prec.sm.xts)
 
-<<<<<<< HEAD
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 ################################ PRESENT! Just one database ########################
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -317,7 +316,6 @@ plot(temp.present.xts, xaxs="i")
 ########################### Átvinni a munkába ###############################
 
 present.foresee = merge.xts(t=temp.present.xts,p=prec.present.xts)
-=======
+
 ## Write data
 write.zoo(remo.echam,"remotest.csv",sep=";",dec=",")
->>>>>>> 8fb6d640a037edda7434120ef226f896ae96ebc5
