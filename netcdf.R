@@ -82,7 +82,33 @@ nc_close(nc.foreseemean)
 
 #########################################################
 #########################################################
+## Cut out precipitation past
 
+ncnam <- dir(patt= "1951")
+nc.filename <- "fresee2.1_prec.nc"
+
+nc.units <- "days since 1951-01-01"
+## Open existing netcdf files
+ncprec <- nc_open(ncnam[1])
+nctimlength <- length(ncvar_get(ncprec,"time"))
+## define the dimensions
+tim <- ncdim_def( "Time", units = nc.units, 1:nctimlength, unlim=TRUE)
+mo.x <- ncdim_def( "Lon", "degreesE", seq(15.75+2/6,22.75+1/6,1/6))
+mo.y <- ncdim_def( "Lat", "degreesN", seq(45.75,48.25+2/6,1/6))
+foreseeprec <- ncvar_def("Precipitation", "mm",  list(mo.x,mo.y,tim), NULL, prec = "float")
+nc.foreseeprec <- nc_create(nc.filename, foreseeprec)
+for(ttlon in 32:73) { #
+    for(ttlat in 20:37) {
+        ## Get data from netcdf files
+        tmpprec <- ncvar_get(ncprec,"pr",c(ttlon,ttlat,1),c(1,1,nctimlength))
+        ncvar_put(nc.foreseeprec, foreseeprec, tmpprec, start= c(ttlon - 31, ttlat - 19,1), count=c(1,1,length(tmpprec)))
+    }
+}
+## Close netcdf files
+nc_close(ncprec)
+nc_close(nc.foreseeprec)
+
+#################################################################################
 ## Cut out precipitation
 
 ncnam <- dir(patt= "HIRHAM5")
@@ -257,6 +283,7 @@ knmi.racmo2 = merge.xts(t=temp.knmi.xts,p=prec.knmi.xts)
 dmi.echam = merge.xts(t=temp.dm.xts,p=prec.dm.xts)
 smhirca.bcm = merge.xts(t=temp.sm.xts,p=prec.sm.xts)
 
+<<<<<<< HEAD
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 ################################ PRESENT! Just one database ########################
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -290,3 +317,7 @@ plot(temp.present.xts, xaxs="i")
 ########################### Átvinni a munkába ###############################
 
 present.foresee = merge.xts(t=temp.present.xts,p=prec.present.xts)
+=======
+## Write data
+write.zoo(remo.echam,"remotest.csv",sep=";",dec=",")
+>>>>>>> 8fb6d640a037edda7434120ef226f896ae96ebc5
