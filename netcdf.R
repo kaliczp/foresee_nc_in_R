@@ -250,9 +250,43 @@ nc_close(nctemp)
 temp.remo.xts <- xts(march.temp.remo, date.d)
 plot(temp.remo.xts, xaxs="i")
 
+################### Átvinni a munkába merge!#########################################x
+
 remo.echam = merge.xts(t=temp.remo.xts,p=prec.remo.xts)
 knmi.racmo2 = merge.xts(t=temp.knmi.xts,p=prec.knmi.xts)
 dmi.echam = merge.xts(t=temp.dm.xts,p=prec.dm.xts)
 smhirca.bcm = merge.xts(t=temp.sm.xts,p=prec.sm.xts)
 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+################################ PRESENT! Just one database ########################
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
+## Date for precipitation: 'PRESENT-PAST; PREC'
+ncprec <- nc_open("FORESEEv2.1_pr_1951-2014.nc")
+## Substract date from original file
+date.d_PRESENT <- as.Date(paste(ncvar_get(ncprec,"year"),ncvar_get(ncprec,"month"),ncvar_get(ncprec,"day"),sep="-"))
+nc_close(ncprec)
+
+## Load data for a Marchfeld pixel !!! P-R-E-C-I-P-I-T-A-T-I-O-N !!!
+
+ncprec <- nc_open("fresee2.1_PRESENTPAST_prec.nc")
+march.prec.present <- ncvar_get(ncprec,"Precipitation", c(3,16,1),c(1,1,23360))
+nc_close(ncprec)
+
+prec.present.xts <- xts(march.prec.present, date.d_PRESENT)
+plot(prec.present.xts, xaxs="i")
+
+#######################################################################################
+
+## Load data for a Marchfeld pixel !!! T-E-M-P-E-R-A-T-U-R-E !!!
+
+nctemp <- nc_open("fresee2.1_PRESENTPAST_tmean.nc")
+march.temp.present <- ncvar_get(nctemp,"Mean temperature", c(3,16,1),c(1,1,23360))
+nc_close(nctemp)
+
+temp.present.xts <- xts(march.temp.present, date.d_PRESENT)
+plot(temp.present.xts, xaxs="i")
+
+########################### Átvinni a munkába ###############################
+
+present.foresee = merge.xts(t=temp.present.xts,p=prec.present.xts)
