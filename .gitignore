@@ -23,3 +23,5 @@ vignettes/*.pdf
 # Additional R data
 *rds
 *nc
+*.RData
+*csv
